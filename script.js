@@ -6,6 +6,8 @@ var email= document.getElementById('email');
 
 form.addEventListener('submit', addItem);
 itemlist.addEventListener('click', removeItem);
+itemlist.addEventListener('click', editItem);
+
 
 function addItem(e){
     e.preventDefault();
@@ -22,12 +24,14 @@ function addItem(e){
     var deletebtn = document.createElement('button');   
     deletebtn.className = 'btn btn-danger btn-sm float-right delete';
     deletebtn.appendChild(document.createTextNode('delete'));
+
+    var editbtn = document.createElement('button');   
+    editbtn.className = 'btn btn-danger btn-sm float-right edit';
+    editbtn.appendChild(document.createTextNode('Edit'));
+
     li.appendChild(deletebtn);
+    li.appendChild(editbtn);
     itemlist.appendChild(li); 
-
-
-
-    itemlist.appendChild(li);
 
     //storing data in storage
     console.log('click');
@@ -55,3 +59,21 @@ function removeItem(e){
 
 }
 
+//edit item
+function editItem(e){
+    if(e.target.classList.contains('edit')){
+        if(confirm('Are you Sure')){
+            var li = e.target.parentElement;
+            
+            var Nemail = li.childNodes[2].nodeValue;
+            var Nfname = li.childNodes[0].nodeValue;
+            var Nlname = li.childNodes[1].nodeValue;
+            document.getElementById('fname').value=Nfname;
+            document.getElementById('lname').value=Nlname;
+            document.getElementById('email').value=Nemail;
+            itemlist.removeChild(li);
+            localStorage.removeItem(Nemail);
+        }
+    }
+
+}
