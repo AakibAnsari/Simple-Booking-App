@@ -46,7 +46,8 @@ function removeItem(e){
     if(e.target.classList.contains('delete')){
         if(confirm('Are you Sure')){
             var li = e.target.parentElement;
-            var email = document.getElementById('email').value;
+            console.log(li.childNodes[2].nodeValue);
+            var email = li.childNodes[2].nodeValue;
             itemlist.removeChild(li);
             localStorage.removeItem(email);
         }
