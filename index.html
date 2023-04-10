@@ -17,14 +17,14 @@
   <div class="container">
     <div id="main" class="card card-body">
      <h2 class="title">Add Details</h2>
-     <form id="addForm" >
+     <form id="addForm" onsubmit="savetolocal(event)">
         <label for="fname">First name:</label><br>
         <input type="text" class="form-control mr-2" id="fname">
         <label for="lname">Last name:</label><br>
         <input type="text" class="form-control mr-2" id="lname">
         <label for="email">Email:</label><br>
         <input type="text" class="form-control mr-2" id="email">
-       <input type="submit" class="btn btn-dark" value="Submit">
+        <button class="btn btn-primary">Submit</button>
      </form>
     <h2 class="title">Entered Details</h2>
     <ul id="items" class="list-group"> </ul>

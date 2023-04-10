@@ -4,76 +4,59 @@ var fname= document.getElementById('fname');
 var lname= document.getElementById('lname');
 var email= document.getElementById('email');
 
-form.addEventListener('submit', addItem);
-itemlist.addEventListener('click', removeItem);
-itemlist.addEventListener('click', editItem);
 
-
-function addItem(e){
-    e.preventDefault();
+function savetolocal(event){
+    event.preventDefault();
     var fname = document.getElementById('fname').value;
     var lname = document.getElementById('lname').value;
     var email = document.getElementById('email').value;
-    var li = document.createElement('li');
-    li.className='list-group-item'
-    li.appendChild(document.createTextNode(fname));
-    li.appendChild(document.createTextNode(lname));
-    li.appendChild(document.createTextNode(email));
 
-    //create delete button element
-    var deletebtn = document.createElement('button');   
-    deletebtn.className = 'btn btn-danger btn-sm float-right delete';
-    deletebtn.appendChild(document.createTextNode('delete'));
-
-    var editbtn = document.createElement('button');   
-    editbtn.className = 'btn btn-danger btn-sm float-right edit';
-    editbtn.appendChild(document.createTextNode('Edit'));
-
-    li.appendChild(deletebtn);
-    li.appendChild(editbtn);
-    itemlist.appendChild(li); 
-
-    //storing data in storage
-    console.log('click');
-    let myobj={
-        firstName: fname,
-        lastName: lname,
-        Email: email
+    const myobj={
+        fname,
+        lname,
+        email
     };
     let myobjserializeed= JSON.stringify(myobj);
-    localStorage.setItem(email, myobjserializeed);
-    console.log(myobjserializeed);   
+    localStorage.setItem(myobj.email, myobjserializeed);
+    console.log(myobjserializeed);
+    show(myobj);   
 }
 
-//remove item
-function removeItem(e){
-    if(e.target.classList.contains('delete')){
-        if(confirm('Are you Sure')){
-            var li = e.target.parentElement;
-            console.log(li.childNodes[2].nodeValue);
-            var email = li.childNodes[2].nodeValue;
-            itemlist.removeChild(li);
-            localStorage.removeItem(email);
-        }
+function show(myobj){
+    var li = document.createElement('li');
+    li.textContent=myobj.fname+' '+myobj.lname+' '+myobj.email+' ';
+    const deleteButton = document.createElement('input');
+    deleteButton.type='button';
+    deleteButton.value='Delete';
+    deleteButton.className='btn btn-danger';
+    deleteButton.onclick= () => {
+        localStorage.removeItem(myobj.email);
+        itemlist.removeChild(li);
     }
-
-}
-
-//edit item
-function editItem(e){
-    if(e.target.classList.contains('edit')){
-        if(confirm('Are you Sure')){
-            var li = e.target.parentElement;
-            
-            var Nemail = li.childNodes[2].nodeValue;
-            var Nfname = li.childNodes[0].nodeValue;
-            var Nlname = li.childNodes[1].nodeValue;
-            document.getElementById('fname').value=Nfname;
-            document.getElementById('lname').value=Nlname;
-            document.getElementById('email').value=Nemail;
-            itemlist.removeChild(li);
-            localStorage.removeItem(Nemail);
-        }
+    const editButton = document.createElement('input');
+    editButton.type='button';
+    editButton.value='Edit';
+    editButton.className='btn btn-primary';
+    editButton.onclick= () => {
+        localStorage.removeItem(myobj.email);
+        itemlist.removeChild(li);
+        document.getElementById('fname').value=myobj.fname;
+        document.getElementById('lname').value=myobj.lname;
+        document.getElementById('email').value=myobj.email;
     }
-
+    li.appendChild(editButton);
+    li.appendChild(deleteButton);
+    itemlist.appendChild(li);
 }
+function displayitem(){
+    keys = (Object.values(localStorage));
+    console.log(keys);
+    for (var i = 0; i < localStorage.length; i++ ) {
+        res=JSON.parse( localStorage.getItem( localStorage.key( i ) ) );
+        {
+        show(res)
+        }
+        // console.log(res)
+    }
+}
+displayitem();
