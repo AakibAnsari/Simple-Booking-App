@@ -66,16 +66,18 @@ function displayitem(){
     //     }
     //     // console.log(res)
     // }
-    axios.get('https://crudcrud.com/api/b7ce83c923d942eda945459562990f5e/users')
-    .then((res) => {
-        for (var i = 0; i < res.data.length; i++ ){
-            show(res.data[i]); 
-            console.log(res.data[i]);
-        }
-        
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+
+    //get saved data from api
+axios.get('https://crudcrud.com/api/b7ce83c923d942eda945459562990f5e/users')
+.then((res) => {
+    for (var i = 0; i < res.data.length; i++ ){
+        show(res.data[i]); 
+        console.log(res.data[i]);
+    }
+    
+})
+.catch((err)=>{
+    console.log(err);
+})
 }
 displayitem();
