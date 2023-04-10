@@ -45,6 +45,7 @@ function show(myobj){
     editButton.type='button';
     editButton.value='Edit';
     editButton.className='btn btn-primary';
+    //edit function
     editButton.onclick= () => {
         axios.delete(`https://crudcrud.com/api/b7ce83c923d942eda945459562990f5e/users/${myobj._id}`);
         itemlist.removeChild(li);
