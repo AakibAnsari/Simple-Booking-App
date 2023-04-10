@@ -38,7 +38,7 @@ function show(myobj){
     deleteButton.value='Delete';
     deleteButton.className='btn btn-danger';
     deleteButton.onclick= () => {
-        localStorage.removeItem(myobj.email);
+        axios.delete(`https://crudcrud.com/api/b7ce83c923d942eda945459562990f5e/users/${myobj._id}`);
         itemlist.removeChild(li);
     }
     const editButton = document.createElement('input');
@@ -46,7 +46,7 @@ function show(myobj){
     editButton.value='Edit';
     editButton.className='btn btn-primary';
     editButton.onclick= () => {
-        localStorage.removeItem(myobj.email);
+        axios.delete(`https://crudcrud.com/api/b7ce83c923d942eda945459562990f5e/users/${myobj._id}`);
         itemlist.removeChild(li);
         document.getElementById('fname').value=myobj.fname;
         document.getElementById('lname').value=myobj.lname;
