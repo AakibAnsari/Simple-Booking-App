@@ -16,10 +16,18 @@ function savetolocal(event){
         lname,
         email
     };
-    let myobjserializeed= JSON.stringify(myobj);
-    localStorage.setItem(myobj.email, myobjserializeed);
-    console.log(myobjserializeed);
-    show(myobj);   
+    // let myobjserializeed= JSON.stringify(myobj);
+    // localStorage.setItem(myobj.email, myobjserializeed);
+    // console.log(myobjserializeed);
+    axios.post('https://crudcrud.com/api/b7ce83c923d942eda945459562990f5e/users',myobj)
+    .then((res) => {
+        show(res.data); 
+        console.log(res);
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+    // show(myobj);   
 }
 
 function show(myobj){
@@ -49,14 +57,25 @@ function show(myobj){
     itemlist.appendChild(li);
 }
 function displayitem(){
-    keys = (Object.values(localStorage));
-    console.log(keys);
-    for (var i = 0; i < localStorage.length; i++ ) {
-        res=JSON.parse( localStorage.getItem( localStorage.key( i ) ) );
-        {
-        show(res)
+    // keys = (Object.values(localStorage));
+    // console.log(keys);
+    // for (var i = 0; i < localStorage.length; i++ ) {
+    //     res=JSON.parse( localStorage.getItem( localStorage.key( i ) ) );
+    //     {
+    //     show(res)
+    //     }
+    //     // console.log(res)
+    // }
+    axios.get('https://crudcrud.com/api/b7ce83c923d942eda945459562990f5e/users')
+    .then((res) => {
+        for (var i = 0; i < res.data.length; i++ ){
+            show(res.data[i]); 
+            console.log(res.data[i]);
         }
-        // console.log(res)
-    }
+        
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
 }
 displayitem();
